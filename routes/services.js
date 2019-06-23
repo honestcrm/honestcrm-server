@@ -1,31 +1,31 @@
 const express = require('express');
 const router = express.Router();
 
-const queries = require('../queries/partners');
+const queries = require('../queries/services');
 
 router.get('/', (request, response, next) => {
-  queries.list('partners').then(partners => {
+  queries.list('services').then(services => {
     response.json({
-      partners
+      services
     });
   }).catch(next);
 });
 
 router.get('/:id', (request, response, next) => {
-  queries.read(request.params.id).then(partner => {
-    partner
+  queries.read(request.params.id).then(service => {
+    service
       ?
       response.json({
-        partner
+        service
       }) :
       response.sendStatus(404)
   }).catch(next);
 });
 
 router.post('/', (request, response, next) => {
-  queries.create(request.body).then(partner => {
+  queries.create(request.body).then(service => {
     response.status(201).json({
-      partner: partner
+      service: service
     });
   }).catch(next);
 });
@@ -37,9 +37,9 @@ router.delete('/:id', (request, response, next) => {
 });
 
 router.put('/:id', (request, response, next) => {
-  queries.update(request.params.id, request.body).then(partner => {
+  queries.update(request.params.id, request.body).then(service => {
     response.json({
-      partner: partner[0]
+      service: service[0]
     });
   }).catch(next);
 });
